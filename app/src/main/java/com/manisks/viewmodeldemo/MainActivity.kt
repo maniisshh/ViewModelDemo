@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //val myData = MainActivityViewModel()
-        val myData = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
+        val myData: MainActivityViewModel =
+            ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
         val myRandomNumber = myData.getNumber()
         tvNumber.text = myRandomNumber
 
