@@ -1,5 +1,6 @@
 package com.manisks.viewmodeldemo
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import timber.log.Timber
 import java.util.*
@@ -9,24 +10,25 @@ import java.util.*
  */
 class MainActivityViewModel : ViewModel() {
 
-    private var myRandomNumber: String? = null
+    private var myRandomNumber: MutableLiveData<String>? = null
 
-    fun getNumber(): String? {
+    fun getNumber(): MutableLiveData<String>? {
         Timber.d("Get number")
         if (myRandomNumber == null) {
+            myRandomNumber = MutableLiveData()
             createNumber()
         }
         return myRandomNumber
     }
 
-    private fun createNumber() {
+    public fun createNumber() {
         Timber.d("Create new number")
         val random = Random()
-        myRandomNumber = "Number: " + (random.nextInt(10 - 1) + 1)
+        myRandomNumber!!.value = "Number: " + (random.nextInt(10 - 1) + 1)
     }
 
-     override fun onCleared() {
-         super.onCleared()
-         Timber.d("ViewModel Destroyed")
-     }
+    override fun onCleared() {
+        super.onCleared()
+        Timber.d("ViewModel Destroyed")
+    }
 }
